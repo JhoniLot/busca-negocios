@@ -1,6 +1,6 @@
 import { Produto, FiltrosBusca, Categoria, OfertaLoja } from './types';
 import { calcularDesconto } from './utils';
-import { buscarProdutosLomadee, buscarOfertasProdutoLomadee } from './lomadee';
+import { buscarProdutosLomadee } from './lomadee';
 
 // Lista de categorias do sistema
 export const CATEGORIAS: Categoria[] = [
@@ -30,7 +30,6 @@ const PRODUTOS_BASE: Omit<Produto, 'menorPreco' | 'maiorPreco' | 'maiorDescontoP
       Tela: 'Super Retina XDR OLED de 6.1 polegadas ProMotion 120Hz',
       Processador: 'Apple A17 Pro (3nm)',
       Câmera: 'Tripla 48 MP + 12 MP + 12 MP com zoom óptico de 3x',
-      Bateria: 'Até 23 horas de reprodução de vídeo',
     },
     ofertas: [
       { id: 'off-1', loja: 'Amazon', preco: 6999.00, precoAnterior: 7999.00, link: 'https://www.amazon.com.br/dp/B0CHWT4DGB', freteGratis: true, parcelamento: '10x de R$ 699,90 sem juros', disponivel: true },
@@ -100,7 +99,6 @@ const PRODUTOS_BASE: Omit<Produto, 'menorPreco' | 'maiorPreco' | 'maiorDescontoP
   },
 ];
 
-// Processa produtos preenchendo menorPreco, maiorPreco e maiorDesconto
 export const PRODUTOS: Produto[] = PRODUTOS_BASE.map((item) => {
   const precos = item.ofertas.map((o) => o.preco);
   const menorPreco = Math.min(...precos);
@@ -123,27 +121,25 @@ export const PRODUTOS: Produto[] = PRODUTOS_BASE.map((item) => {
 });
 
 /**
- * CAMADA ÚNICA DE DADOS - INTEGRAÇÃO REAL COM LOMADEE + FALLBACK MOCK
+ * BUSCA DE PRODUTOS COMPATÍVEL COM GITHUB PAGES E API LOMADEE
  */
 export async function buscarProdutos(filtros: FiltrosBusca = {}): Promise<Produto[]> {
   const { termo, categoria, marca, loja, precoMin, precoMax, ordem } = filtros;
 
-  // 1. TENTA BUSCAR DA API DA LOMADEE SE O TOKEN ESTIVER CONFIGURADO NO SERVIDOR
-  if (process.env.LOMADEE_TOKEN && process.env.LOMADEE_TOKEN !== 'seu_token_aqui_123456') {
-    try {
-      const resultadosLomadee = await buscarProdutosLomadee(termo || 'oferta', categoria);
-      if (resultadosLomadee && resultadosLomadee.length > 0) {
-        let filtrados = [...resultadosLomadee];
-        if (precoMin !== undefined) filtrados = filtrados.filter((p) => p.menorPreco >= precoMin);
-        if (precoMax !== undefined) filtrados = filtrados.filter((p) => p.menorPreco <= precoMax);
-        if (ordem === 'menor-preco') filtrados.sort((a, b) => a.menorPreco - b.menorPreco);
-        if (ordem === 'maior-preco') filtrados.sort((a, b) => b.menorPreco - a.menorPreco);
-        if (ordem === 'maior-desconto') filtrados.sort((a, b) => b.maiorDescontoPorcentagem - a.maiorDescontoPorcentagem);
-        return filtrados;
-      }
-    } catch (err) {
-      console.warn('API Lomadee indisponível ou token inválido, chaveando para base local:', err);
+  // 1. TENTA BUSCAR RESULTADOS EM TEMPO REAL DA LOMADEE
+  try {
+    const resultadosLomadee = await buscarProdutosLomadee(termo || 'oferta', categoria);
+    if (resultadosLomadee && resultadosLomadee.length > 0) {
+      let filtrados = [...resultadosLomadee];
+      if (precoMin !== undefined) filtrados = filtrados.filter((p) => p.menorPreco >= precoMin);
+      if (precoMax !== undefined) filtrados = filtrados.filter((p) => p.menorPreco <= precoMax);
+      if (ordem === 'menor-preco') filtrados.sort((a, b) => a.menorPreco - b.menorPreco);
+      if (ordem === 'maior-preco') filtrados.sort((a, b) => b.menorPreco - a.menorPreco);
+      if (ordem === 'maior-desconto') filtrados.sort((a, b) => b.maiorDescontoPorcentagem - a.maiorDescontoPorcentagem);
+      return filtrados;
     }
+  } catch (err) {
+    console.warn('Busca Lomadee indisponível, chaveando para catálogo padrão', err);
   }
 
   // 2. FALLBACK SEGURO PARA BASE LOCAL DE MOCK

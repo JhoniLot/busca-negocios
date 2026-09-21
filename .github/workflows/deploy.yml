@@ -4,7 +4,6 @@ on:
   push:
     branches: ["main"]
 
-  # Permite execução manual no painel Actions
   workflow_dispatch:
 
 permissions:
@@ -32,8 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build with Next.js
+      - name: Build with Next.js & Lomadee API
         run: npm run build
+        env:
+          NEXT_PUBLIC_LOMADEE_TOKEN: "lmd_production_oxsLe28yU9_4V0gvsXhWhFpONALfOikavbSUWPyrbSN"
+          LOMADEE_TOKEN: "lmd_production_oxsLe28yU9_4V0gvsXhWhFpONALfOikavbSUWPyrbSN"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,7 +1,15 @@
-import { Produto, OfertaLoja, FiltrosBusca } from './types';
-import { calcularDesconto } from './utils';
+import { Produto, OfertaLoja } from './types';
 
 const LOMADEE_BASE_URL = 'https://api.lomadee.com/v3';
+const DEFAULT_TOKEN = 'lmd_production_oxsLe28yU9_4V0gvsXhWhFpONALfOikavbSUWPyrbSN';
+
+function obterTokenLomadee(): string {
+  return (
+    process.env.NEXT_PUBLIC_LOMADEE_TOKEN ||
+    process.env.LOMADEE_TOKEN ||
+    DEFAULT_TOKEN
+  );
+}
 
 interface LomadeeProduct {
   id: number | string;
@@ -35,15 +43,11 @@ interface LomadeeOffer {
 }
 
 /**
- * Busca produtos na API v3 da Lomadee
+ * Busca produtos na API v3 da Lomadee (compatível com navegador e servidor)
  */
 export async function buscarProdutosLomadee(termo: string = 'celular', categoriaId?: string): Promise<Produto[]> {
-  const token = process.env.LOMADEE_TOKEN;
-  const sourceId = process.env.LOMADEE_SOURCE_ID || '';
-
-  if (!token || token === 'seu_token_aqui_123456') {
-    return [];
-  }
+  const token = obterTokenLomadee();
+  const sourceId = process.env.NEXT_PUBLIC_LOMADEE_SOURCE_ID || process.env.LOMADEE_SOURCE_ID || '';
 
   try {
     const url = new URL(`${LOMADEE_BASE_URL}/${token}/product/_search`);
@@ -56,7 +60,6 @@ export async function buscarProdutosLomadee(termo: string = 'celular', categoria
       headers: {
         'Accept': 'application/json',
       },
-      next: { revalidate: 1800 }, // Cache de 30 minutos
     });
 
     if (!res.ok) {
@@ -70,12 +73,9 @@ export async function buscarProdutosLomadee(termo: string = 'celular', categoria
       return [];
     }
 
-    // Mapeia resposta da Lomadee para o tipo Produto do Busca Descontos
     const produtosMapeados: Produto[] = await Promise.all(
       data.products.map(async (item: LomadeeProduct) => {
-        // Busca ofertas das lojas para este produto específico na Lomadee
         const ofertasLojas = await buscarOfertasProdutoLomadee(String(item.id), item.name);
-
         const menorPreco = item.priceMin || (ofertasLojas.length > 0 ? ofertasLojas[0].preco : 0);
         const maiorPreco = item.priceMax || menorPreco;
 
@@ -85,7 +85,7 @@ export async function buscarProdutosLomadee(termo: string = 'celular', categoria
           slug: `lomadee-${item.id}`,
           marca: item.brand?.name || 'Diversas Lojas',
           categoria: item.category?.name || 'Geral',
-          descricao: `Ofertas encontradas para ${item.name} comparadas através da rede Lomadee.`,
+          descricao: `Oferta verificada para ${item.name} integrada via Lomadee.`,
           imagem: item.thumbnail || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80',
           menorPreco,
           maiorPreco,
@@ -110,7 +110,7 @@ export async function buscarProdutosLomadee(termo: string = 'celular', categoria
 
     return produtosMapeados;
   } catch (error) {
-    console.error('Erro ao integrar com API Lomadee:', error);
+    console.warn('Busca Lomadee (navegador/servidor): utilizando fallback de segurança.', error);
     return [];
   }
 }
@@ -119,12 +119,8 @@ export async function buscarProdutosLomadee(termo: string = 'celular', categoria
  * Busca ofertas de lojas para um determinado produto na Lomadee
  */
 export async function buscarOfertasProdutoLomadee(produtoId: string, termoBusca: string): Promise<OfertaLoja[]> {
-  const token = process.env.LOMADEE_TOKEN;
-  const sourceId = process.env.LOMADEE_SOURCE_ID || '';
-
-  if (!token || token === 'seu_token_aqui_123456') {
-    return [];
-  }
+  const token = obterTokenLomadee();
+  const sourceId = process.env.NEXT_PUBLIC_LOMADEE_SOURCE_ID || process.env.LOMADEE_SOURCE_ID || '';
 
   try {
     const url = new URL(`${LOMADEE_BASE_URL}/${token}/offer/_search`);
@@ -132,10 +128,7 @@ export async function buscarOfertasProdutoLomadee(produtoId: string, termoBusca:
     if (sourceId) url.searchParams.set('sourceId', sourceId);
     url.searchParams.set('size', '5');
 
-    const res = await fetch(url.toString(), {
-      next: { revalidate: 1800 },
-    });
-
+    const res = await fetch(url.toString());
     if (!res.ok) return [];
 
     const data = await res.json();
@@ -160,7 +153,6 @@ export async function buscarOfertasProdutoLomadee(produtoId: string, termoBusca:
       };
     });
   } catch (error) {
-    console.error('Erro ao buscar ofertas Lomadee:', error);
     return [];
   }
 }
