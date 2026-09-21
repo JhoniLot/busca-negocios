@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  output: 'export',
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
+    unoptimized: true,
   },
+  // Subpasta para o GitHub Pages (https://jhonilot.github.io/busca-negocios)
+  basePath: process.env.NODE_ENV === 'production' ? '/busca-negocios' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/busca-negocios/' : '',
 };
 
 export default nextConfig;

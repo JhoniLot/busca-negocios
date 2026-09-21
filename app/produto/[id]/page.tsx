@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { buscarProdutoPorId, buscarProdutos } from '@/lib/produtos';
+import { buscarProdutoPorId, buscarProdutos, PRODUTOS } from '@/lib/produtos';
 import { OfferTable } from '@/components/OfferTable';
 import { ProductCard } from '@/components/ProductCard';
 import { formatarMoeda, obterOfertaMaisBarata } from '@/lib/utils';
@@ -16,13 +16,19 @@ import {
   Store,
   Info,
   Truck,
-  RotateCcw,
 } from 'lucide-react';
 
 interface ProdutoPageProps {
   params: {
     id: string;
   };
+}
+
+// Para exportação estática no GitHub Pages
+export async function generateStaticParams() {
+  return PRODUTOS.map((produto) => ({
+    id: produto.slug,
+  }));
 }
 
 // SEO Dinâmico por Produto
