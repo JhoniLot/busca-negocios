@@ -6,8 +6,6 @@ import { ProductCard } from '@/components/ProductCard';
 import { obterProdutosDestaque } from '@/lib/produtos';
 import { Search, Scale, PiggyBank, ArrowRight, ShieldCheck, Zap, Sparkles } from 'lucide-react';
 
-export const revalidate = 3600; // SSG com ISR a cada 1 hora
-
 export default async function HomePage() {
   const produtosDestaque = await obterProdutosDestaque(8);
 
@@ -30,7 +28,7 @@ export default async function HomePage() {
 
           {/* Título Principal Forte */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-navy font-display tracking-tight leading-[1.1] mb-6">
-            Compare preços e <span className="text-brand-green underline decoration-brand-green/30">pague menos</span>.
+            Compare preços e <span className="text-brand-green underline decoration-brand-green/30">Poupaí</span>.
           </h1>
 
           {/* Subtítulo Claro */}
@@ -66,7 +64,7 @@ export default async function HomePage() {
         <section className="bg-white rounded-3xl p-8 sm:p-12 border border-brand-border shadow-soft">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy font-display tracking-tight">
-              Como funciona o Busca Descontos
+              Como funciona o Poupaí
             </h2>
             <p className="text-sm text-brand-muted mt-2">
               Economizar em suas compras online nunca foi tão simples e rápido.
@@ -84,7 +82,7 @@ export default async function HomePage() {
                 Pesquise
               </h3>
               <p className="text-sm text-brand-muted leading-relaxed">
-                Digita o nome do produto que você deseja comprar na nossa barra de busca central.
+                Digite o nome do produto que você deseja comprar na nossa barra de busca central.
               </p>
             </div>
 
@@ -112,7 +110,7 @@ export default async function HomePage() {
                 Economize
               </h3>
               <p className="text-sm text-brand-muted leading-relaxed">
-                Clique no botão "Ver na loja" e conclua a compra diretamente no site do parceiro com desconto.
+                Clique no botão "Ver na loja" e conclua a compra diretamente no site do parceiro pelo menor valor.
               </p>
             </div>
           </div>

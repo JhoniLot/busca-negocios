@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
-import { Heart, ShieldCheck, Target, Users } from 'lucide-react';
+import { ShieldCheck, Target, Users } from 'lucide-react';
 
 export const metadata = {
-  title: 'Sobre Nós | Busca Descontos',
-  description: 'Conheça a história e o propósito por trás do Busca Descontos, seu parceiro de economia inteligente no Brasil.',
+  title: 'Sobre Nós | Poupaí',
+  description: 'Conheça a história e o propósito por trás do Poupaí (poupai.store), seu parceiro de economia inteligente no Brasil.',
 };
 
 export default function SobrePage() {
@@ -16,7 +16,7 @@ export default function SobrePage() {
           <Logo variant="dark" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-navy font-display tracking-tight">
-          Sobre o Busca Descontos
+          Sobre o Poupaí
         </h1>
         <p className="text-base text-brand-muted max-w-2xl mx-auto leading-relaxed">
           Nossa missão é devolver o poder de escolha ao consumidor brasileiro através da transparência e da comparação inteligente de preços.
@@ -30,7 +30,7 @@ export default function SobrePage() {
             Nossa Proposta de Valor
           </h2>
           <p>
-            O <strong>Busca Descontos</strong> nasceu da percepção de que comprar online no Brasil se tornou um desafio. Com tantas lojas, cupons e variações diárias de preços, o consumidor muitas vezes paga mais caro por falta de informação ou por não ter tempo de pesquisar em cada site individualmente.
+            O <strong>Poupaí</strong> (uma junção divertida da ideia de "Poupar" + "Aí") nasceu da percepção de que comprar online no Brasil se tornou um desafio. Com tantas lojas, cupons e variações diárias de preços, o consumidor muitas vezes paga mais caro por falta de informação.
           </p>
           <p className="mt-3">
             Criamos uma plataforma rápida, limpa e extremamente focada na utilidade: reunimos as maiores lojas do e-commerce brasileiro em uma única tela para que você veja quem vende mais barato em segundos.
@@ -43,7 +43,7 @@ export default function SobrePage() {
             Compromisso com a Verdade
           </h2>
           <p>
-            Não aceitamos pagamentos para alterar a ordem natural do menor preço. Se a loja A vende por R$ 1.000 e a loja B vende por R$ 1.200, a loja A sempre aparecerá em destaque como a opção de menor valor, garantindo total imparcialidade para quem busca economizar de verdade.
+            Não aceitamos pagamentos para alterar a ordem natural do menor preço. Se a loja A vende por R$ 1.000 e a loja B vende por R$ 1.200, a loja A sempre aparecerá em destaque como a opção de menor valor.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export default function SobrePage() {
             Para Brasileiros, Feito por Brasileiros
           </h2>
           <p>
-            Conhecemos a realidade do comércio eletrônico no Brasil. Por isso, todos os preços são exibidos em Reais (R$), considerando opções de parcelamento sem juros, cupons e custo estimado de frete.
+            Conhecemos a realidade do comércio eletrônico no Brasil. Por isso, todos os preços são exibidos em Reais (R$), considerando opções de parcelamento sem juros e frete.
           </p>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function SobrePage() {
           href="/busca"
           className="inline-flex items-center gap-2 px-8 py-4 bg-navy hover:bg-navy-800 text-white font-bold rounded-2xl transition-all duration-200 shadow-md"
         >
-          <span>Conheça nossas ofertas</span>
+          <span>Conheça nossas ofertas no Poupaí</span>
         </Link>
       </div>
     </div>

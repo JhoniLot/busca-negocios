@@ -12,31 +12,32 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Busca Descontos | Compare Preços e Pague Menos no Brasil',
+  title: 'Poupaí | Compare Preços e Pague Menos no Brasil',
   description:
-    'O comparador de preços mais simples, rápido e transparente do Brasil. Compare ofertas da Amazon, Mercado Livre, Magalu, Casas Bahia, Kabum e economize de verdade.',
+    'O comparador de preços mais simples, rápido e transparente do Brasil. Compare ofertas da Amazon, Mercado Livre, Magalu, Casas Bahia, Kabum e Poupaí!',
   keywords: [
+    'Poupaí',
+    'poupai.store',
     'comparador de preços',
-    'busca descontos',
     'menor preço',
     'ofertas brasil',
     'desconto iphone',
     'cupom de desconto',
     'promocoes',
   ],
-  authors: [{ name: 'Busca Descontos' }],
+  authors: [{ name: 'Poupaí' }],
   openGraph: {
-    title: 'Busca Descontos | Compare Preços e Pague Menos',
+    title: 'Poupaí | Compare Preços e Economize',
     description:
-      'Compare ofertas em mais de 40.000 produtos nas maiores lojas do Brasil. Economize tempo e dinheiro.',
-    url: 'https://buscadescontos.com.br',
-    siteName: 'Busca Descontos',
+      'Compare ofertas em milhares de produtos nas maiores lojas do Brasil. Economize tempo e dinheiro.',
+    url: 'https://poupai.store',
+    siteName: 'Poupaí',
     locale: 'pt_BR',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Busca Descontos | Compare Preços no Brasil',
+    title: 'Poupaí | Compare Preços no Brasil',
     description: 'Encontre o menor preço em lojas parceiras verificadas.',
   },
 };

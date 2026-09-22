@@ -11,8 +11,8 @@ export function Logo({ variant = 'dark', className = '', showText = true }: Logo
 
   return (
     <div className={`flex items-center gap-2.5 select-none ${className}`}>
-      {/* Ícone SVG: Lupa integrada com etiqueta de desconto / seta descendente */}
-      <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-navy to-navy-800 text-white shadow-soft">
+      {/* Ícone SVG: Lupa integrada com seta de economia verde */}
+      <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-navy to-navy-800 text-white shadow-soft shrink-0">
         <svg
           viewBox="0 0 40 40"
           fill="none"
@@ -28,7 +28,7 @@ export function Logo({ variant = 'dark', className = '', showText = true }: Logo
             strokeWidth="2.5"
             strokeLinecap="round"
           />
-          {/* Cabo da Lupa transformado em Tag de Desconto */}
+          {/* Cabo da Lupa */}
           <path
             d="M24 24L31 31"
             stroke="white"
@@ -43,19 +43,24 @@ export function Logo({ variant = 'dark', className = '', showText = true }: Logo
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {/* Ponto de destaque Laranja */}
+          {/* Ponto de Destaque Laranja */}
           <circle cx="28" cy="12" r="2.5" fill="#FF7A1A" />
         </svg>
       </div>
 
       {showText && (
         <div className="flex flex-col">
-          <div className="flex items-center text-xl font-extrabold tracking-tight font-display leading-none">
-            <span className={isDarkBg ? 'text-white' : 'text-navy'}>Busca</span>
-            <span className="text-brand-green ml-1">Descontos</span>
+          {/* Nome da Marca: Poupa em uma cor, í em destaque com acento */}
+          <div className="flex items-center text-2xl font-extrabold tracking-tight font-display leading-none">
+            <span className={isDarkBg ? 'text-white' : 'text-navy'}>Poupa</span>
+            <span className="text-brand-green relative inline-block">
+              í
+              {/* Pontinho/Acento estilizado em destaque em Laranja */}
+              <span className="absolute -top-0.5 right-0.5 w-1.5 h-1.5 bg-brand-orange rounded-full animate-pulse" />
+            </span>
           </div>
-          <span className={`text-[10px] font-medium tracking-wide uppercase mt-0.5 ${isDarkBg ? 'text-gray-300' : 'text-brand-muted'}`}>
-            Compare e pague menos
+          <span className={`text-[10px] font-semibold tracking-wider uppercase mt-0.5 ${isDarkBg ? 'text-gray-300' : 'text-brand-muted'}`}>
+            Compare e economize
           </span>
         </div>
       )}

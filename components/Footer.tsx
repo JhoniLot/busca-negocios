@@ -15,8 +15,8 @@ export function Footer() {
               <Logo variant="light" />
             </Link>
             <p className="text-gray-300 text-sm leading-relaxed max-w-sm">
-              O <strong>Busca Descontos</strong> é o seu assistente inteligente de economia no Brasil.
-              Comparamos preços em tempo real nas maiores lojas e marketplaces para garantir que você compre pelo menor valor com total segurança.
+              O <strong>Poupaí</strong> (poupai.store) é o seu assistente inteligente de economia no Brasil.
+              Comparamos preços em tempo real nas maiores lojas para você economizar de verdade.
             </p>
             <div className="flex items-center gap-2 text-xs text-brand-green font-medium pt-2">
               <ShieldCheck className="w-4 h-4" />
@@ -106,17 +106,17 @@ export function Footer() {
         {/* Aviso Legal de Afiliados no Rodapé */}
         <div className="py-6 border-b border-navy-800 text-xs text-gray-400 leading-relaxed">
           <p>
-            <strong className="text-gray-300">Aviso de Isenção e Transparência:</strong> O Busca Descontos é um comparador de preços independente.
+            <strong className="text-gray-300">Aviso de Isenção e Transparência:</strong> O Poupaí é um comparador de preços independente.
             Podemos receber uma comissão quando você clica nos links de compra e conclui um pedido nos sites parceiros (Amazon, Mercado Livre, Magalu, Casas Bahia, Kabum, Fast Shop, etc.).
-            Essa remuneração não altera o preço final do produto para você. As ofertas e a disponibilidade dos produtos estão sujeitas a alterações sem aviso prévio pelas lojas de origem.
+            Essa remuneração não altera o preço final do produto para você.
           </p>
         </div>
 
         {/* Direitos Autorais */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
-          <p>© {new Date().getFullYear()} Busca Descontos. Todos os direitos reservados. Feito para o Brasil.</p>
+          <p>© {new Date().getFullYear()} Poupaí (poupai.store). Todos os direitos reservados.</p>
           <div className="flex items-center gap-1 text-gray-400">
-            <span>Desenvolvido com excelência e foco no consumidor</span>
+            <span>Poupa + aí = Economia fácil</span>
             <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
           </div>
         </div>
