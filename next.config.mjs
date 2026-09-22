@@ -4,9 +4,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Subpasta para o GitHub Pages (https://jhonilot.github.io/busca-negocios)
-  basePath: process.env.NODE_ENV === 'production' ? '/busca-negocios' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/busca-negocios/' : '',
+  // Configuração para domínio próprio (poupai.store)
+  // basePath e assetPrefix vazios para carregar recursos da raiz do domínio
+  basePath: '',
 };
 
 export default nextConfig;
